@@ -1,0 +1,67 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/BuildTrigger.WorflowsElements",
+    "definitions": {
+        "BuildTrigger.WorflowsElements": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "workflows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BuildTrigger.Workflow"
+                    }
+                }
+            },
+            "required": [
+                "workflows"
+            ],
+            "title": "Worflows elements"
+        },
+        "BuildTrigger.Workflow": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Optional property. Recommended for describing the workflow."
+                },
+                "workflow": {
+                    "type": "string",
+                    "description": "The workflow-file to start."
+                },
+                "triggerRules": {
+                    "$ref": "#/definitions/BuildTrigger.TriggerRules",
+                    "description": "Optional. Used to specify that the workflow should be triggered at check-in. If not specified, the workflow will not be trigged at all."
+                }
+            },
+            "required": [
+                "workflow"
+            ],
+            "title": "Workflow",
+            "description": "Workflow object"
+        },
+        "BuildTrigger.TriggerRules": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "includes": {
+                    "type": "array",
+                    "description": "Optional. Used to specify changes to be reacted to. If empty list or unspecfied, the workflow will be trigged by all changes.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "excludes": {
+                    "type": "array",
+                    "description": "Optional. Used to specify changes that should not be reacted to.",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "title": "TriggerRules",
+            "description": "Used to specify changes to be reacted to. If empty list, the workflow will be trigged by all changes."
+        }
+    }
+}
